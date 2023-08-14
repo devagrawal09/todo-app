@@ -5,20 +5,18 @@ body {
   background: whitesmoke;
   font-family: Arial;
   font-size: 18px;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
 }
 
-body > div {
+#root {
   flex-direction: column;
   display: flex;
   width: 100%;
-  max-width: 700px;
-  min-width: 300px;
 }
 
-body > div > div {
-  width: 100%;
+.nav.flex {
+  padding: 10px 20px;
 }
 
 h1 {
@@ -26,28 +24,31 @@ h1 {
   font-style: italic;
   font-size: 3.75rem;
   font-weight: inherit;
-  text-align: center;
   margin: 0;
+  text-align: center;
 }
 
-main {
-  width: 100%;
+.todos {
+  width: 50%;
+  min-width: 400px;
   background-color: white;
   box-shadow: 0 2px 4px #0003, 0 25px 50px #0000001a;
   border: 1px solid lightgray;
   border-radius: 0.5em;
+  margin: auto;
 }
 
-main > div,
-main > form {
+.todos div,
+.todos form {
   border-bottom: 1px solid lightgray;
 }
-main > div > span {
+
+.todos div span {
   width: 100%;
   padding: 0.25em;
 }
 
-input {
+.todos input {
   font-family: inherit;
   font-size: 100%;
   width: 100%;
@@ -56,21 +57,21 @@ input {
   padding: 0.25em;
 }
 
-input:checked + input {
+.todos input:checked+input {
   text-decoration: line-through;
 }
 
-input:placeholder-shown {
+.todos input:placeholder-shown {
   font-style: italic;
 }
 
-input[type='checkbox'] {
+.todos input[type='checkbox'] {
   width: 1.25em;
   height: 1.25em;
   transform: translateY(1px);
 }
 
-div,
+div.flex,
 form {
   display: flex;
   padding: 0.3em 0.5em;
@@ -86,7 +87,7 @@ footer {
   padding: 0.5em 0.5em;
 }
 
-button {
+.btn {
   font-weight: 500;
   box-sizing: border-box;
   font-family: inherit;
@@ -98,17 +99,17 @@ button {
   white-space: nowrap;
 }
 
-main > div > button {
+.todos .btn {
   border: 0;
   color: white;
 }
 
-button:hover {
+.btn:hover {
   color: inherit;
   background-color: whitesmoke;
 }
 
-div > main > div:hover > button,
-div > main > div:focus-within > button {
+.todos div:hover .btn,
+.todos div:focus-within .btn {
   color: inherit;
 }
