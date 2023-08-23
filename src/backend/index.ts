@@ -1,8 +1,10 @@
-import { type LooseAuthProp } from '@clerk/clerk-sdk-node'
+import { remultExpress } from 'remult/remult-express'
+import { ClerkExpressWithAuth, type LooseAuthProp } from '@clerk/clerk-sdk-node'
 import { config } from 'dotenv'
 config()
 
 import express from 'express'
+import { Task } from '../models/Task'
 
 export const app = express()
 
@@ -11,6 +13,12 @@ declare global {
     interface Request extends LooseAuthProp {}
   }
 }
+
+const api = remultExpress({
+  entities: [Task],
+})
+
+app.use(ClerkExpressWithAuth(), api)
 
 /**
  * In Development:

@@ -1,25 +1,33 @@
 import { useQueryClient, useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
-import { useState, FormEvent } from 'react'
+import { FormEvent } from 'react'
 import { Task } from '../models/Task'
+import { remult } from 'remult'
+
+const todoRepo = remult.repo(Task)
 
 export function TasksComponent() {
-  const [newTaskTitle, setNewTaskTitle] = useState('')
   const qc = useQueryClient()
 
-  const { data: tasks, isLoading: tasksLoading } = useQuery<Task[]>(
-    ['tasks'],
-    () => []
+  const { data: tasks, isLoading: tasksLoading } = useQuery(['tasks'], () =>
+    todoRepo.find()
   )
 
   async function addTask(e: FormEvent) {
     e.preventDefault()
-
     const form = e.target as HTMLFormElement
     // @ts-expect-error
     const title = form.title.value
-    console.log({ title })
     form.reset()
+
+    try {
+      await todoRepo.insert({ title })
+      qc.invalidateQueries(['tasks'])
+
+      form.reset()
+    } catch (error: any) {
+      alert(error.message)
+    }
   }
 
   return (
@@ -29,9 +37,8 @@ export function TasksComponent() {
         className="border border-b border-solid flex px-2 py-1 items-center todo"
       >
         <input
-          value={newTaskTitle}
+          name="title"
           placeholder="What needs to be done?"
-          onChange={(e) => setNewTaskTitle(e.target.value)}
           className="w-full p-1 outline-none placeholder:italic"
         />
         <button className="font-medium rounded-full border px-4 py-2 text-md font-sans bg-white border-none text-white hover:text-inherit hover:bg-gray-200">
@@ -59,9 +66,24 @@ export function TasksComponent() {
 function TaskComponent({ task }: { task: Task }) {
   const qc = useQueryClient()
 
-  async function setCompleted(task: Task, completed: boolean) {}
+  async function setCompleted(task: Task, completed: boolean) {
+    try {
+      task.completed = completed
+      await todoRepo.save(task)
+      qc.invalidateQueries(['tasks'])
+    } catch (error: any) {
+      alert(error.message)
+    }
+  }
 
-  async function deleteTask(task: Task) {}
+  async function deleteTask(task: Task) {
+    try {
+      await todoRepo.delete(task)
+      qc.invalidateQueries(['tasks'])
+    } catch (error: any) {
+      alert(error.message)
+    }
+  }
 
   return (
     <div className="border-b flex px-2 py-1 gap-4 items-center todo">
