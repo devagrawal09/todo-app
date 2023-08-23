@@ -14,6 +14,12 @@ export function TasksComponent() {
 
   async function addTask(e: FormEvent) {
     e.preventDefault()
+
+    const form = e.target as HTMLFormElement
+    // @ts-expect-error
+    const title = form.title.value
+    console.log({ title })
+    form.reset()
   }
 
   return (
