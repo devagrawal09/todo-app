@@ -8,17 +8,7 @@ import {
 } from 'remult'
 
 @Entity<Task>('tasks', {
-  allowApiRead: true,
-  allowApiInsert: Allow.authenticated,
-  allowApiUpdate: (task, remult) => {
-    console.log(`Updating task ${task?.id} by ${remult?.user?.id}`)
-    // return remult?.user?.id === task?.userId
-    return false
-  },
-  allowApiDelete: (task, remult) => {
-    console.log(`Deleting task ${task?.id} by ${remult?.user?.id}`)
-    return remult?.user?.id === task?.userId
-  },
+  allowApiCrud: Allow.authenticated,
 })
 export class Task extends IdEntity {
   @Fields.uuid()
@@ -38,6 +28,9 @@ export class Task extends IdEntity {
     validate: Validators.required,
   })
   userId = ''
+
+  @Fields.string()
+  projectId = ''
 
   @Fields.date({ defaultValue: () => new Date() })
   createdAt?: Date

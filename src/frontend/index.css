@@ -1,115 +1,14 @@
 @charset "utf-8";
 
-body {
-  margin: 0;
-  background: whitesmoke;
-  font-family: Arial;
-  font-size: 18px;
-  /* display: flex; */
-  justify-content: center;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-#root {
-  flex-direction: column;
-  display: flex;
-  width: 100%;
-}
-
-.nav.flex {
-  padding: 10px 20px;
-}
-
-h1 {
-  color: #ef4444;
-  font-style: italic;
-  font-size: 3.75rem;
-  font-weight: inherit;
-  margin: 0;
-  text-align: center;
-}
-
-.todos {
-  width: 50%;
-  min-width: 400px;
-  background-color: white;
+.card-shadow {
   box-shadow: 0 2px 4px #0003, 0 25px 50px #0000001a;
-  border: 1px solid lightgray;
-  border-radius: 0.5em;
-  margin: auto;
 }
 
-.todos div,
-.todos form {
-  border-bottom: 1px solid lightgray;
-}
-
-.todos div span {
-  width: 100%;
-  padding: 0.25em;
-}
-
-.todos input {
-  font-family: inherit;
-  font-size: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  border: 0;
-  padding: 0.25em;
-}
-
-.todos input:checked+input {
-  text-decoration: line-through;
-}
-
-.todos input:placeholder-shown {
-  font-style: italic;
-}
-
-.todos input[type='checkbox'] {
-  width: 1.25em;
-  height: 1.25em;
-  transform: translateY(1px);
-}
-
-div.flex,
-form {
-  display: flex;
-  padding: 0.3em 0.5em;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2px;
-}
-
-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 2px;
-  padding: 0.5em 0.5em;
-}
-
-.btn {
-  font-weight: 500;
-  box-sizing: border-box;
-  font-family: inherit;
-  font-size: 16px;
-  background-color: white;
-  border-radius: 3em;
-  border: 1px solid lightgray;
-  padding: 0.5em 1em;
-  white-space: nowrap;
-}
-
-.todos .btn {
-  border: 0;
-  color: white;
-}
-
-.btn:hover {
-  color: inherit;
-  background-color: whitesmoke;
-}
-
-.todos div:hover .btn,
-.todos div:focus-within .btn {
-  color: inherit;
+.todo:hover button,
+.todo:focus-within button {
+  color: #222;
 }

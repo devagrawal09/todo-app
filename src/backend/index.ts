@@ -5,13 +5,13 @@ import express from 'express'
 import { remultExpress } from 'remult/remult-express'
 import { ClerkExpressWithAuth, LooseAuthProp } from '@clerk/clerk-sdk-node'
 import { Task } from '../models/Task'
+import { Project } from '../models/Project'
 import { JsonDataProvider } from 'remult'
 import { JsonEntityFileStorage } from 'remult/server'
 import swaggerUi from 'swagger-ui-express'
 
 import { createSchema, createYoga } from 'graphql-yoga'
 import { remultGraphql } from 'remult/graphql'
-import morgan from 'morgan'
 
 export const app = express()
 
@@ -22,7 +22,7 @@ declare global {
 }
 
 const api = remultExpress({
-  entities: [Task],
+  entities: [Task, Project],
   logApiEndPoints: true,
   dataProvider: new JsonDataProvider(new JsonEntityFileStorage('./db')),
   async getUser(req: express.Request) {
@@ -42,7 +42,7 @@ const yoga = createYoga({
   graphqlEndpoint: '/api/graphql',
   schema: createSchema(
     remultGraphql({
-      entities: [Task],
+      entities: [Task, Project],
     })
   ),
 })
