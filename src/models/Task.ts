@@ -5,9 +5,5 @@ export class Task {
 
   completed = false
 
-  userId = ''
-
-  projectId = ''
-
   createdAt?: Date
 }
