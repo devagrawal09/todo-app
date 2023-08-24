@@ -29,11 +29,7 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openApiDocument))
 
 const yoga = createYoga({
   graphqlEndpoint: '/api/graphql',
-  schema: createSchema(
-    remultGraphql({
-      entities: [Task],
-    })
-  ),
+  schema: createSchema(remultGraphql({ entities: [Task] })),
 })
 app.use(yoga.graphqlEndpoint, api.withRemult, yoga)
 
