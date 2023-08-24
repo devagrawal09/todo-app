@@ -1,10 +1,9 @@
 import { useQueryClient, useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
-import { useState, FormEvent } from 'react'
+import { FormEvent } from 'react'
 import { Task } from '../models/Task'
 
 export function TasksComponent() {
-  const [newTaskTitle, setNewTaskTitle] = useState('')
   const qc = useQueryClient()
 
   const { data: tasks, isLoading: tasksLoading } = useQuery<Task[]>(
@@ -29,9 +28,7 @@ export function TasksComponent() {
         className="border border-b border-solid flex px-2 py-1 items-center todo"
       >
         <input
-          value={newTaskTitle}
           placeholder="What needs to be done?"
-          onChange={(e) => setNewTaskTitle(e.target.value)}
           className="w-full p-1 outline-none placeholder:italic"
         />
         <button className="font-medium rounded-full border px-4 py-2 text-md font-sans bg-white border-none text-white hover:text-inherit hover:bg-gray-200">
