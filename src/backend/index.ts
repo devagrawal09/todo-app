@@ -1,8 +1,11 @@
-import { remultExpress } from 'remult/remult-express'
-import { ClerkExpressWithAuth, type LooseAuthProp } from '@clerk/clerk-sdk-node'
 import { config } from 'dotenv'
 config()
 
+import { remultExpress } from 'remult/remult-express'
+import { ClerkExpressWithAuth, type LooseAuthProp } from '@clerk/clerk-sdk-node'
+import swaggerUi from 'swagger-ui-express'
+import { createSchema, createYoga } from 'graphql-yoga'
+import { remultGraphql } from 'remult/graphql'
 import express from 'express'
 import { Task } from '../models/Task'
 
@@ -19,6 +22,20 @@ const api = remultExpress({
 })
 
 app.use(ClerkExpressWithAuth(), api)
+
+const openApiDocument = api.openApiDoc({ title: 'remult-react-todo' })
+app.get('/api/openApi.json', (req, res) => res.json(openApiDocument))
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openApiDocument))
+
+const yoga = createYoga({
+  graphqlEndpoint: '/api/graphql',
+  schema: createSchema(
+    remultGraphql({
+      entities: [Task],
+    })
+  ),
+})
+app.use(yoga.graphqlEndpoint, api.withRemult, yoga)
 
 /**
  * In Development:
