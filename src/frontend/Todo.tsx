@@ -41,7 +41,10 @@ export function TasksComponent() {
           placeholder="What needs to be done?"
           className="w-full p-1 outline-none placeholder:italic"
         />
-        <button className="font-medium rounded-full border px-4 py-2 text-md font-sans bg-white border-none text-white hover:text-inherit hover:bg-gray-200">
+        <button
+          className="font-medium rounded-full border px-4 py-2 text-md font-sans bg-white border-none text-white hover:text-inherit hover:bg-gray-200 active:bg-gray-300
+        "
+        >
           Add
         </button>
       </form>
@@ -98,7 +101,8 @@ function TaskComponent({ task }: { task: Task }) {
       </span>
       <button
         onClick={() => deleteTask(task)}
-        className="font-medium rounded-full border px-4 py-2 text-md font-sans bg-white border-none text-white hover:text-inherit hover:bg-gray-200"
+        className="font-medium rounded-full border px-4 py-2 text-md font-sans bg-white border-none text-white hover:text-inherit hover:bg-gray-200 active:bg-gray-300
+        "
       >
         x
       </button>
